@@ -1,6 +1,6 @@
 # Lalegpl
 
-[![Build Status](https://travis.ibm.com/Lale/lale-gpl.svg?token=QkHPippRvYWwfTw3XzyW&branch=master)](https://travis.ibm.com/Lale/lale-gpl)
+[![Build Status](https://travis-ci.com/IBM/lale-gpl.svg?branch=master)](https://travis-ci.com/IBM/lale-gpl)
 <br />
 <img src="docs/img/lale_logo.jpg" alt="logo" width="55px"/>
 
