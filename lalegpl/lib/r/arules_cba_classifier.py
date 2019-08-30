@@ -13,6 +13,7 @@
 
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.import lale.helpers
+import lale
 from lalegpl.lib.r.util import install_r_package, create_r_dataframe
 import pandas
 import rpy2.robjects

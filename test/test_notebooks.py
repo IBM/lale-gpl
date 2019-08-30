@@ -16,7 +16,7 @@
 import tempfile
 import unittest
 import os
-
+import subprocess
 
 class TestNotebooks(unittest.TestCase):
    pass

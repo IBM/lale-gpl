@@ -18,6 +18,7 @@ import pandas
 import tempfile
 import urllib
 import zipfile
+import arff
 
 def fetch(dataset, data_home=None, convert_strings_to_integers = True):
     if data_home is None:

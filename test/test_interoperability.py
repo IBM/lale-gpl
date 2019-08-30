@@ -17,6 +17,7 @@ import warnings
 import random
 import jsonschema
 import sys
+import unittest
 import lale.operators as Ops
 from lale.lib.lale import ConcatFeatures
 from lale.lib.lale import NoOp
