@@ -12,7 +12,8 @@
 # GNU General Public License for more details.
 
 # You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <https://www.gnu.org/licenses/>.import lalegpl.lib.weka.util
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+import lalegpl.lib.weka.util
 from lalegpl.lib.weka.util import sklearn_input_to_weka, weka_output_to_sklearn
 import lale.operators
 import weka.classifiers

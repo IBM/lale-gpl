@@ -12,7 +12,9 @@
 # GNU General Public License for more details.
 
 # You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <https://www.gnu.org/licenses/>.# See also https://github.com/fracpete/python-weka-wrapper3
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+# See also https://github.com/fracpete/python-weka-wrapper3
 import javabridge
 import lale.helpers
 import numpy as np

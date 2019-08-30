@@ -12,8 +12,9 @@
 # GNU General Public License for more details.
 
 # You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <https://www.gnu.org/licenses/>.import lale.helpers
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
 import lale
+import lale.helpers
 from lalegpl.lib.r.util import install_r_package, create_r_dataframe
 import pandas
 import rpy2.robjects
