@@ -35,6 +35,7 @@ def sklearn_input_to_weka(X, y=None, labels=None):
         attribs.append(Attribute.create_numeric('x_{}'.format(i)))
     if labels is None and y is not None:
         labels = [str(label) for label in np.unique(y)]
+    y_indices = np.unique(y)
     attribs.append(Attribute.create_nominal('y', labels))
     n_rows = len(X)
     instances = Instances.create_instances('data', attribs, n_rows)
@@ -42,9 +43,9 @@ def sklearn_input_to_weka(X, y=None, labels=None):
         if y is None:
             row = [*X[i], '0']
         elif isinstance(y, pd.Series):
-            row = [*X[i], y.iloc[i]]
+            row = [*X[i], np.where(y_indices == y.iloc[i])[0]]
         else:
-            row = [*X[i], y[i]]
+            row = [*X[i], np.where(y_indices == y[i])[0]]            
         instances.add_instance(Instance.create_instance(row))
     instances.class_is_last()
     return instances, labels
