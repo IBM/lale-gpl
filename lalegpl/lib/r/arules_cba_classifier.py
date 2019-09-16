@@ -28,14 +28,18 @@ class ArulesCBAClassifier_Impl:
     def fit(self, X, y):
 #        assert type(X) is pandas.DataFrame and type(y) is pandas.Series
         arules_pkg = install_r_package('arulesCBA')
-        formula = rpy2.robjects.Formula('{} ~ .'.format(y.name))
+        if not isinstance(y, pandas.Series):
+          y_name = "target"
+        else:
+          y_name = y.name
+        formula = rpy2.robjects.Formula('{} ~ .'.format(y_name))
+
         r_train = create_r_dataframe(X, y)
         hps = {k: v for k, v in self._hyperparams.items() if v is not None}
         self._r_model = arules_pkg.CBA(formula=formula, data=r_train, **hps)
         return self
 
     def predict(self, X):
-        assert type(X) is pandas.DataFrame
         stats_pkg = rpy2.robjects.packages.importr('stats')
         predict_fun = stats_pkg.predict
         r_test = create_r_dataframe(X)
@@ -55,11 +59,11 @@ _input_schema_fit = {
     'X': {
       'description': 'Features; the outer array is over samples.',
       'type': 'array',
-      'items': {'type': 'array', 'items': {'type': 'integer'}}},
+      'items': {'type': 'array', 'items': {'type': 'number'}}},
     'y': {
       'description': 'Target class labels; the array is over samples.',
       'type': 'array',
-      'items': {'type': 'integer'}}}}
+      'items': {'type': 'number'}}}}
 
 _input_schema_predict = {
   '$schema': 'http://json-schema.org/draft-04/schema#',
@@ -72,7 +76,7 @@ _input_schema_predict = {
     'X': {
       'description': 'Features; the outer array is over samples.',
       'type': 'array',
-      'items': {'type': 'array', 'items': {'type': 'integer'}}}}}
+      'items': {'type': 'array', 'items': {'type': 'number'}}}}}
 
 _output_schema = {
   '$schema': 'http://json-schema.org/draft-04/schema#',
@@ -80,7 +84,7 @@ _output_schema = {
     'Output data schema for predictions (target class labels). '
     'So far only works for strings.',
   'type': 'array',
-  'items': {'type': 'integer'}}
+  'items': {'type': 'number'}}
 
 _hyperparams_schema = {
   '$schema': 'http://json-schema.org/draft-04/schema#',
