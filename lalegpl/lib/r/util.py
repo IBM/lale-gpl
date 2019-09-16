@@ -37,8 +37,11 @@ def install_r_package(pkg_name):
     return pkg
 
 def create_r_dataframe(X, y=None):
-    assert type(X) is pandas.DataFrame
-    assert y is None or type(y) is pandas.Series
+    if not isinstance(X, pandas.DataFrame):
+        X = pandas.DataFrame(X, columns=['f'+str(i) for i in range(X.shape[1])], index=[i for i in range(X.shape[0])])
+    if y is not None and not isinstance(y, pandas.Series):
+        y = pandas.Series(y, name="target")
+
     def create_r_vec(pd_df, col_name):
         col = pd_df[col_name]
         #TODO: make this code work for other types besides categorical strings
