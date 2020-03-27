@@ -13,38 +13,15 @@
 
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
-import warnings
-import random
-import jsonschema
 import sys
 import unittest
-import lale.operators as Ops
-from lale.lib.lale import ConcatFeatures
 from lale.lib.lale import NoOp
-from lale.lib.sklearn import KNeighborsClassifier
-from lale.lib.sklearn import LinearSVC
-from lale.lib.sklearn import LogisticRegression
 from lale.lib.sklearn import MinMaxScaler
-from lale.lib.sklearn import MLPClassifier
-from lale.lib.sklearn import Nystroem
-from lale.lib.sklearn import OneHotEncoder
 from lale.lib.sklearn import PCA
-from lale.lib.sklearn import TfidfVectorizer
-from lale.lib.sklearn import MultinomialNB
-from lale.lib.sklearn import SimpleImputer
-from lale.lib.sklearn import SVC
-from lale.lib.xgboost import XGBClassifier
-from lale.lib.sklearn import PassiveAggressiveClassifier
-from lale.lib.sklearn import StandardScaler
-from lale.lib.sklearn import FeatureAgglomeration
 from lalegpl.lib.weka import J48
-from typing import List
 
 import sklearn.datasets
 
-from lale.sklearn_compat import make_sklearn_compat
-from lale.search.GridSearchCV import LaleGridSearchCV, get_grid_search_parameter_grids
-from lale.search.SMAC import get_smac_space, lale_trainable_op_from_config
 from lale.search.op2hp import hyperopt_search_space
 
 
@@ -161,9 +138,9 @@ class TestJ48(unittest.TestCase):
 
         clf = J48()
         from sklearn.metrics import accuracy_score
-        from lale.lib.lale import NoOp, HyperoptClassifier
+        from lale.lib.lale import NoOp, Hyperopt
         from lale.operators import make_pipeline
-        clf = HyperoptClassifier(make_pipeline(J48()), max_evals = 1)
+        clf = Hyperopt(estimator=make_pipeline(J48()), max_evals = 1)
         trained_clf = clf.fit(X_train, y_train)
         print(accuracy_score(y_test, trained_clf.predict(X_test)))
 

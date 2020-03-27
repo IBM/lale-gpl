@@ -13,31 +13,12 @@
 
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
-import jsonschema
-import warnings
 import unittest
 
-from lale.lib.lale import ConcatFeatures
-from lale.lib.lale import NoOp
 from lale.lib.sklearn import KNeighborsClassifier
-from lale.lib.sklearn import LinearSVC
 from lale.lib.sklearn import LogisticRegression
-from lale.lib.sklearn import MinMaxScaler
-from lale.lib.sklearn import Normalizer
-from lale.lib.sklearn import MLPClassifier
-from lale.lib.sklearn import Nystroem
-from lale.lib.sklearn import OneHotEncoder
-from lale.lib.sklearn import PCA
-from lale.lib.sklearn import TfidfVectorizer
-from lale.lib.sklearn import MultinomialNB
-from lale.lib.sklearn import SimpleImputer
-from lale.lib.sklearn import SVC
-from lale.lib.xgboost import XGBClassifier
-from lale.lib.sklearn import PassiveAggressiveClassifier
-from lale.lib.sklearn import StandardScaler
-from lale.lib.sklearn import FeatureAgglomeration
 
-from lale.search.SMAC import get_smac_space, lale_trainable_op_from_config
+from lale.search.lale_smac import get_smac_space, lale_trainable_op_from_config
 
 import numpy as np
 from typing import List
@@ -64,7 +45,7 @@ def test_iris_f_min(op, num_folds=5):
 def test_iris_f_min_for_folds(num_folds=5):
     return lambda op: test_iris_f_min(op, num_folds=num_folds)
     
-from lale.search.SMAC import lale_op_smac_tae
+from lale.search.lale_smac import lale_op_smac_tae
 
 def test_iris_fmin_tae(op, num_folds=5):
     return lale_op_smac_tae(op, test_iris_f_min_for_folds(num_folds=num_folds))
