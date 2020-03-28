@@ -26,7 +26,6 @@ class ArulesCBAClassifier_Impl:
         self._hyperparams = hyperparams
 
     def fit(self, X, y):
-#        assert type(X) is pandas.DataFrame and type(y) is pandas.Series
         arules_pkg = install_r_package('arulesCBA')
         if not isinstance(y, pandas.Series):
           y_name = "target"

@@ -17,6 +17,7 @@ import os
 import pandas
 import rpy2.robjects
 import rpy2.robjects.packages
+import lale.helpers
 
 def install_r_package(pkg_name):
     if 'R_LIBS_USER' in os.environ:
@@ -30,9 +31,9 @@ def install_r_package(pkg_name):
     rutils = rpy2.robjects.packages.importr('utils')
     rutils.chooseCRANmirror(ind=1)
     if not rpy2.robjects.packages.isinstalled(pkg_name):
-        print(f'installing R package {pkg_name} to libPaths {libPaths_fun()}')
+        lale.helpers.println_pos(f'installing R package {pkg_name} to libPaths {libPaths_fun()}')
         rutils.install_packages(pkg_name)
-        print(f'package {pkg_name} is installed')
+        lale.helpers.println_pos(f'after installing R package {pkg_name}')
     pkg = rpy2.robjects.packages.importr(pkg_name)
     return pkg
 
