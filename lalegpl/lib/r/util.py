@@ -29,7 +29,7 @@ def install_r_package(pkg_name):
     libPaths_fun = rpy2.robjects.r['.libPaths']
     libPaths_fun(lib_dir)
     rutils = rpy2.robjects.packages.importr('utils')
-    #rutils.chooseCRANmirror(ind=1) #https://cran.r-project.org/mirrors.html
+    rutils.chooseCRANmirror(ind=1) #https://cran.r-project.org/mirrors.html
     if not rpy2.robjects.packages.isinstalled(pkg_name):
         lale.helpers.println_pos(f'installing R package {pkg_name} to libPaths {libPaths_fun()}')
         rutils.install_packages(pkg_name)
