@@ -34,7 +34,8 @@ class ArulesCBAClassifier_Impl:
         formula = rpy2.robjects.Formula(f'{y_name} ~ .')
         r_train = create_r_dataframe(X, y)
         hps = {k: v for k, v in self._hyperparams.items() if v is not None}
-        lale.helpers.println_pos('arules_pkg.CBA(formula="{}", data=[\n{}], {})'.format(formula, r_train, ', '.join([f'{k}={v}' for k, v in hps.items()])))
+        if False:
+            lale.helpers.println_pos('arules_pkg.CBA(formula="{}", data=[\n{}], {})'.format(formula, r_train, ', '.join([f'{k}={v}' for k, v in hps.items()])))
         self._r_model = arules_pkg.CBA(formula=formula, data=r_train, **hps)
         return self
 
