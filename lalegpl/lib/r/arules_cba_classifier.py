@@ -26,16 +26,16 @@ class ArulesCBAClassifier_Impl:
         self._hyperparams = hyperparams
 
     def fit(self, X, y):
-#        assert type(X) is pandas.DataFrame and type(y) is pandas.Series
         arules_pkg = install_r_package('arulesCBA')
         if not isinstance(y, pandas.Series):
           y_name = "target"
         else:
           y_name = y.name
-        formula = rpy2.robjects.Formula('{} ~ .'.format(y_name))
-
+        formula = rpy2.robjects.Formula(f'{y_name} ~ .')
         r_train = create_r_dataframe(X, y)
         hps = {k: v for k, v in self._hyperparams.items() if v is not None}
+        if False:
+            lale.helpers.println_pos('arules_pkg.CBA(formula="{}", data=[\n{}], {})'.format(formula, r_train, ', '.join([f'{k}={v}' for k, v in hps.items()])))
         self._r_model = arules_pkg.CBA(formula=formula, data=r_train, **hps)
         return self
 
@@ -78,7 +78,7 @@ _input_schema_predict = {
       'type': 'array',
       'items': {'type': 'array', 'items': {'type': 'number'}}}}}
 
-_output_schema = {
+_output_predict_schema = {
   '$schema': 'http://json-schema.org/draft-04/schema#',
   'description':
     'Output data schema for predictions (target class labels). '
@@ -96,8 +96,7 @@ _hyperparams_schema = {
       'type': 'object',
       'additionalProperties': False,
       'required': [
-        'support', 'confidence', 'verbose', 'parameter', 'control',
-        'sort_parameter', 'lhs_support', 'disc_method'],
+        'support', 'confidence', 'disc_method', 'balanceSupport', 'pruning'],
       'relevantToOptimizer': ['confidence', 'disc_method'],
       'properties': {
         'support': {
@@ -112,47 +111,40 @@ _hyperparams_schema = {
           'default': 0.8,
           'minimum': 0,
           'maximumForOptimizer': 1.0},
-        'verbose': {
-          'description':
-            'Optional logical flag to allow verbose execution, where '
-            'additional intermediary execution information is printed '
-            'at runtime.',
-          'type': 'boolean',
-          'default': False},
-        'parameter': {
-          'description': 'Optional parameter list for apriori.',
-          'anyOf': [
-            { 'type': 'array'},
-            { 'enum': [None]}],
-          'default': None},
-        'control': {
-          'description': 'Optional control list for apriori.',
-          'anyOf': [
-            { 'type': 'array'},
-            { 'enum': [None]}],
-          'default': None},
-        'sort_parameter': {
-          'description':
-            'Ordered vector of arules interest measures (as characters) '
-            'which are used to sort rules in preprocessing.',
-          'anyOf': [
-            { 'type': 'array'},
-            { 'enum': [None]}],
-          'default': None},
-        'lhs_support': {
-          'description':
-            'Logical variable, which, when set to True, indicates that '
-            'LHS support should be used for rule mining.  LHS support '
-            'rule mining is considerably slower than normal mining.',
-          'type': 'boolean',
-          'default': False},
         'disc_method': {
           'description':
             'Discretization method for factorizing numeric input.',
           'default': 'mdlp',
           'enum':
             ['mdlp', 'caim', 'cacc', 'ameva', 'chi2', 'chimerge',
-             'extendedchi2', 'modchi2']}}}]}
+             'extendedchi2', 'modchi2']},
+        'balanceSupport': {
+          'description': 'If true, class imbalance is counteracted by using the minimum support only for the majority class.',
+          'type': 'boolean',
+          'default': False},
+        'pruning': {
+          'enum': ['M1', 'M2'],
+          'default': 'M1'},
+        # 'parameter': {
+        #   'description': 'Optional parameter list for apriori.',
+        #   'anyOf': [
+        #     { 'type': 'array'},
+        #     { 'enum': [None]}],
+        #   'default': None},
+        # 'control': {
+        #   'description': 'Optional control list for apriori.',
+        #   'anyOf': [
+        #     { 'type': 'array'},
+        #     { 'enum': [None]}],
+        #   'default': None},
+        # 'verbose': {
+        #   'description':
+        #     'Optional logical flag to allow verbose execution, where '
+        #     'additional intermediary execution information is printed '
+        #     'at runtime.',
+        #   'type': 'boolean',
+        #   'default': False},
+}}]}
 
 _combined_schemas = {
   '$schema': 'http://json-schema.org/draft-04/schema#',
@@ -166,7 +158,7 @@ _combined_schemas = {
   'properties': {
     'input_fit': _input_schema_fit,
     'input_predict': _input_schema_predict,
-    'output': _output_schema,
+    'output_predict': _output_predict_schema,
     'hyperparams': _hyperparams_schema } }
 
 if __name__ == "__main__":
