@@ -12,6 +12,7 @@ addons:
       key_url: http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x51716619E084DAB9
     packages:
     - graphviz
+    - gfortran
     - r-base
     - swig
 install:
