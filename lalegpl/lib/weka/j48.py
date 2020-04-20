@@ -253,6 +253,10 @@ _combined_schemas = {
   '$schema': 'http://json-schema.org/draft-04/schema#',
   'description': 'Combined schema for expected data and hyperparameters.',
   'documentation_url': 'http://weka.sourceforge.net/doc.dev/weka/classifiers/trees/J48.html',
+  'tags': {
+    'pre': [],
+    'op': ['estimator', 'classifier', 'interpretable'],
+    'post': []},
   'type': 'object',
   'properties': {
     'input_fit': _input_schema_fit,
