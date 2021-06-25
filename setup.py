@@ -47,6 +47,7 @@ setup(
             'sphinx',
             'm2r',
             'sphinx_rtd_theme',
+            'pyspark',
             'mysql-connector-python'
         ]}
 )
