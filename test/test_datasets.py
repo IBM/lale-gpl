@@ -41,16 +41,14 @@ class TestJoin(unittest.TestCase):
         imdb = fetch_imdb_dataset()
         trainable = Join(
             pred=[
-                it.directors.id == it.movies_directors.director_id,
                 it.movies_directors.movie_id == it.movies_genres.movie_id,
                 it.movies_genres.movie_id == it.movies.id,
                 it.movies_directors.movie_id == it.roles.movie_id,
-                it.roles.actor_id == it.actors.id,
             ],
             join_type="left",
         )
         transformed_df = trainable.transform(imdb)
-        self.assertEqual(transformed_df.shape, (6063934, 16))
+        self.assertEqual(transformed_df.shape, (6062848, 9))
         self.assertEqual(transformed_df["movie_id"][1], 281325)
 
 
@@ -62,14 +60,12 @@ class TestJoinSpark(unittest.TestCase):
             imdb = fetch_imdb_dataset("spark")
             trainable = Join(
                 pred=[
-                    it.directors.id == it.movies_directors.director_id,
                     it.movies_directors.movie_id == it.movies_genres.movie_id,
                     it.movies_genres.movie_id == it.movies.id,
                     it.movies_directors.movie_id == it.roles.movie_id,
-                    it.roles.actor_id == it.actors.id,
                 ],
                 join_type="left",
             )
             transformed_df = trainable.transform(imdb)
-            self.assertEqual(transformed_df.count(), 6063934)
-            self.assertEqual(len(transformed_df.columns), 16)
+            self.assertEqual(transformed_df.count(), 6062848)
+            self.assertEqual(len(transformed_df.columns), 9)
