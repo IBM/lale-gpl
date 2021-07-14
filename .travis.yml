@@ -3,7 +3,7 @@ language: python
 python:
   - "3.6"
 env:
-  - SETUP_TARGET=.[test] TEST_CASES="test.test_interoperability test.test_optimizers test.test_notebooks test.test_datasets"
+  - SETUP_TARGET=.[test] TEST_CASES="test.test_interoperability test.test_optimizers test.test_notebooks test.test_datasets test.test_relational"
 addons:
   apt:
     sources:
