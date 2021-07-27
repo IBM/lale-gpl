@@ -125,7 +125,7 @@ def fetch_imdb_dataset(datatype="pandas"):
             imdb_list.append(
                 {csv_name.split(".")[0]: get_data_from_csv(datatype, data_file_name)}
             )
-        logger.info(" FFFFFFFFetched the IMDB dataset. Process completed.")
+        logger.info(" Fetched the IMDB dataset. Process completed.")
         return imdb_list
     except mysql.connector.Error as err:
         raise ValueError(err)
