@@ -49,7 +49,7 @@ def get_data_from_csv(datatype, data_file_name):
     elif datatype.casefold() == "spark":
         if spark_installed:
             spark = SparkSession.builder.appName("GetDataset").getOrCreate()
-            return spark.read.csv(data_file_name, header=True)
+            return spark.read.options(inferSchema="True", delimiter=",").csv(data_file_name, header=True)
         else:
             raise ValueError("Spark is not installed on this machine.")
     else:
@@ -125,7 +125,7 @@ def fetch_imdb_dataset(datatype="pandas"):
             imdb_list.append(
                 {csv_name.split(".")[0]: get_data_from_csv(datatype, data_file_name)}
             )
-        logger.info(" Fetched the IMDB dataset. Process completed.")
+        logger.info(" FFFFFFFFetched the IMDB dataset. Process completed.")
         return imdb_list
     except mysql.connector.Error as err:
         raise ValueError(err)
