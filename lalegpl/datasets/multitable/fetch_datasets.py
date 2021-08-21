@@ -22,6 +22,8 @@ import urllib.request
 import mysql.connector
 import pandas as pd
 
+from lale.datasets.data_schemas import add_table_name
+
 logging.basicConfig()
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -122,9 +124,9 @@ def fetch_imdb_dataset(datatype="pandas"):
                     c.writerow(row)
                 file.close()
                 logger.info(" Created:{}".format(data_file_name))
-            imdb_list.append(
-                {csv_name.split(".")[0]: get_data_from_csv(datatype, data_file_name)}
-            )
+            table_name = csv_name.split(".")[0]
+            data_frame = get_data_from_csv(datatype, data_file_name)
+            imdb_list.append(add_table_name(data_frame, table_name))
         logger.info(" Fetched the IMDB dataset. Process completed.")
         return imdb_list
     except mysql.connector.Error as err:
