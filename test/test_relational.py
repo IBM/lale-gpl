@@ -35,6 +35,7 @@ except ImportError:
 
 from lale.lib.lale import Join, Filter
 from lale.expressions import it
+from lale.datasets.data_schemas import get_table_name
 from lalegpl.datasets.multitable.fetch_datasets import fetch_imdb_dataset
 
 
@@ -52,11 +53,14 @@ class TestBenchmarkJoinAndFilterPandas(unittest.TestCase):
         join_first = time.time() - start_time
         logger.info(" Pandas: Join Before Filter --- {} seconds".format(join_first))
 
+        movies_directors = imdb[4]
+        self.assertEqual(get_table_name(movies_directors), "movies_directors")
         start_time = time.time()
         trainable = Filter(pred=[it["director_id"] == 8])
-        filtered_df = trainable.transform(imdb[4].get('movies_directors'))
+        filtered_df = trainable.transform(movies_directors)
+        self.assertEqual(get_table_name(filtered_df), "movies_directors")
         imdb.pop(4)
-        imdb.append({'movies_directors': filtered_df})
+        imdb.append(filtered_df)
         trainable = Join(pred=[it.movies_directors.movie_id == it.movies.id],join_type="inner")
         transformed_df = trainable.transform(imdb)
         self.assertEqual(transformed_df.shape, (35, 6))
@@ -80,11 +84,14 @@ class TestBenchmarkJoinAndFilterSpark(unittest.TestCase):
     def test_benchmark_join_after_filter_spark(self):
         if spark_installed:
             imdb = fetch_imdb_dataset("spark")
+            movies_directors = imdb[4]
+            self.assertEqual(get_table_name(movies_directors), "movies_directors")
             start_time = time.time()
             trainable = Filter(pred=[it["director_id"] == 8])
-            filtered_df = trainable.transform(imdb[4].get('movies_directors'))
+            filtered_df = trainable.transform(movies_directors)
+            self.assertEqual(get_table_name(filtered_df), "movies_directors")
             imdb.pop(4)
-            imdb.append({'movies_directors': filtered_df})
+            imdb.append(filtered_df)
             trainable = Join(pred=[it.movies_directors.movie_id == it.movies.id],join_type="inner")
             transformed_df = trainable.transform(imdb)
             self.assertEqual(transformed_df.count(), 35)
@@ -97,4 +104,5 @@ class TestBenchmarkJoinAndFilterSpark(unittest.TestCase):
             logger.info(" Spark: Join After Filter --- {} seconds".format(filter_first))
             join_first = self.test_benchmark_join_before_filter_spark()
             logger.info(" Spark: Join Before Filter --- {} seconds".format(join_first))
-            self.assertTrue((join_first - join_first / 5) <= filter_first <= (join_first + join_first / 5))
+            self.assertLessEqual(join_first - join_first / 5, filter_first)
+            self.assertLessEqual(filter_first, join_first + join_first / 5)
