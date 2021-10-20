@@ -44,8 +44,10 @@ version = ''
 # The full version, including alpha/beta/rc tags
 release = ''
 
+import builtins
 import os
 import sys
+from typing import Dict
 sys.path.insert(0, os.path.abspath('../lalegpl/'))
 import sphinx_rtd_theme  # isort:skip # noqa:E402
 
