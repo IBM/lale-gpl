@@ -36,6 +36,7 @@ from platypus import (
 from sklearn.metrics import get_scorer
 from sklearn.model_selection import check_cv, train_test_split
 
+import lale.docstrings
 import lale.operators
 from lale.lib.lale._common_schemas import (
     check_scoring_best_score_constraint,
@@ -565,3 +566,4 @@ _combined_schemas = {
 }
 
 NSGA2 = lale.operators.make_operator(_NSGA2Impl, _combined_schemas, name="NSGA2")
+lale.docstrings.set_docstrings(NSGA2)
