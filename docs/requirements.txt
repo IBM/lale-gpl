@@ -28,7 +28,6 @@ sphinxcontrib.apidoc
 # not listed in setup.py
 docutils==0.16
 #lalegpl specific requirements
-rpy2>=3.0.2
 platypus-opt>=1.0.4
 pyspark
 mysql-connector-python
