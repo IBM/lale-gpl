@@ -85,7 +85,8 @@ autoclass_content = "both"
 
 # Mock requirements to save resources during doc build machine setup
 autodoc_mock_imports = [
-    "weka"
+    "weka",
+    "rpy2"
 ]
 
 # Add any paths that contain templates here, relative to this directory.
