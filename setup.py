@@ -46,10 +46,10 @@ setup(
             'jupyter',
             'mypy',
             'flake8',
-            'numpydoc',
-            'sphinx',
-            'm2r',
-            'sphinx_rtd_theme',
+            "sphinx==2.4.4",
+            "m2r",
+            "sphinx_rtd_theme",
+            "sphinxcontrib.apidoc",
             'pyspark',
             'mysql-connector-python'
         ]}
