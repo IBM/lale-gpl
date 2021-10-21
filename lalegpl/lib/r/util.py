@@ -15,8 +15,13 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 import os
 import pandas
-import rpy2.robjects
-import rpy2.robjects.packages
+try:
+  import rpy2.robjects
+  import rpy2.robjects.packages
+except ImportError:
+  raise ImportError("""This functionality needs a Python package called `rpy2`. 
+  Please install it using `pip install rpy2` or install lalegpl[full] which will install it for you.""")
+
 import lale.helpers
 
 def install_r_package(pkg_name):

@@ -16,7 +16,13 @@
 import lalegpl.lib.weka.util
 from lalegpl.lib.weka.util import sklearn_input_to_weka, weka_output_to_sklearn
 import lale.operators
-import weka.classifiers
+try:
+  import weka.classifiers
+except ImportError:
+  raise ImportError("""J48 needs Python packages called `python-weka-wrapper3` and `javabridge`. 
+  You can install them using `pip install` or install lalegpl[full] which will install it for you.""")
+
+
 import pandas as pd
 class J48_Impl:
     def __init__(self, **hyperparams):
