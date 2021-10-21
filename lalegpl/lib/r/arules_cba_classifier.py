@@ -17,8 +17,13 @@ import lale
 import lale.helpers
 from lalegpl.lib.r.util import install_r_package, create_r_dataframe
 import pandas
-import rpy2.robjects
-import rpy2.robjects.packages
+try:
+  import rpy2.robjects
+  import rpy2.robjects.packages
+except ImportError:
+  raise ImportError("""ArulesCBAClassifier needs a Python package called `rpy2`. 
+  You can install it using `pip install rpy2` or install lalegpl[full] which will install it for you.""")
+
 import numpy as np
 
 class ArulesCBAClassifier_Impl:

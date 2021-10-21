@@ -15,12 +15,19 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 # See also https://github.com/fracpete/python-weka-wrapper3
-import javabridge
+
+try:
+    import javabridge
+    import weka.core.classes
+    import weka.core.jvm
+
+except ImportError:
+  raise ImportError("""J48 needs Python packages called `python-weka-wrapper3` and `javabridge`. 
+  You can them using `pip install` or install lalegpl[full] which will install it for you.""")
+
 import lale.helpers
 import numpy as np
 import re
-import weka.core.classes
-import weka.core.jvm
 import pandas as pd
 
 if not weka.core.jvm.started:

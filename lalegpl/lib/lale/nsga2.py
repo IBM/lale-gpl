@@ -20,19 +20,24 @@ import time
 import jsonschema
 import numpy as np
 import pandas as pd
-from platypus import (
-    HUX,
-    NSGAII,
-    PM,
-    SBX,
-    Binary,
-    BitFlip,
-    CompoundOperator,
-    Integer,
-    Problem,
-    Real,
-    nondominated,
-)
+try:
+    from platypus import (
+        HUX,
+        NSGAII,
+        PM,
+        SBX,
+        Binary,
+        BitFlip,
+        CompoundOperator,
+        Integer,
+        Problem,
+        Real,
+        nondominated,
+    )
+except ImportError:
+  raise ImportError("""NSGA2 needs a Python package called `platypus`. 
+  You can install it using `pip install platypus` or install lalegpl[full] which will install it for you.""")
+
 from sklearn.metrics import get_scorer
 from sklearn.model_selection import check_cv, train_test_split
 
