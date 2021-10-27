@@ -48,7 +48,7 @@ import builtins
 import os
 import sys
 from typing import Dict
-sys.path.insert(0, os.path.abspath('../lalegpl/'))
+sys.path.append(os.path.join(os.path.dirname(__name__), "../lalegpl"))
 import sphinx_rtd_theme  # isort:skip # noqa:E402
 
 # This is so that we can detect if we are running a sphinx build
@@ -77,7 +77,7 @@ extensions = [
     "m2r",
     "sphinxcontrib.apidoc",
 ]
-apidoc_module_dir = "../lale"
+apidoc_module_dir = "../lalegpl"
 apidoc_output_dir = "modules"
 apidoc_separate_modules = True
 
