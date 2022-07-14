@@ -43,7 +43,7 @@ from sklearn.model_selection import check_cv, train_test_split
 
 import lale.docstrings
 import lale.operators
-from lale.lib.lale._common_schemas import (
+from lale.lib._common_schemas import (
     check_scoring_best_score_constraint,
     schema_best_score,
     schema_cv,
