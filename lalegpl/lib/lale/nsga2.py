@@ -36,7 +36,7 @@ try:
     )
 except ImportError:
   raise ImportError("""NSGA2 needs a Python package called `platypus`. 
-  You can install it using `pip install platypus` or install lalegpl[full] which will install it for you.""")
+  You can install it using `pip install platypus-opt>=1.0.4` or install lalegpl[full] which will install it for you.""")
 
 from sklearn.metrics import get_scorer
 from sklearn.model_selection import check_cv, train_test_split
