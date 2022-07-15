@@ -46,6 +46,7 @@ from lale.lib.lale import Project, ConcatFeatures, GridSearchCV, Hyperopt, NoOp
 from lale.lib.lale import OptimizeLast, Hyperopt
 from lalegpl.lib.lale import NSGA2
 from sklearn.metrics import get_scorer, make_scorer, matthews_corrcoef
+from sklearn.model_selection import StratifiedShuffleSplit
 
 #import logging
 #logging.basicConfig(level=logging.INFO)
@@ -222,7 +223,8 @@ class TestNSGA2(unittest.TestCase):
 
         clf = LGBMClassifier()
         fpr_scorer = make_scorer(compute_fpr, greater_is_better=False)
-        cv = 1  # no CV will be performed, only single train/test split
+        # no CV will be performed, only single train/test split
+        cv = StratifiedShuffleSplit(n_splits=1, test_size=0.3, random_state=42)
         nsga2_args = {'estimator': clf,
                       'scoring': ['accuracy', fpr_scorer],
                       'best_score': [1, 0], 'cv': cv,
