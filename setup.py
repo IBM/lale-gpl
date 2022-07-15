@@ -33,7 +33,7 @@ setup(
     packages=find_packages(),
     license='',
     install_requires=[
-        'lale[full] @ git+https://git@github.com/IBM/lale.git@master#egg=lale[full]',
+        'lale',
     ],
     extras_require={
         'full':[
