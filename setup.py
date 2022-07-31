@@ -40,7 +40,9 @@ setup(
             'javabridge>=1.0.18',
             'python-weka-wrapper3>=0.1.7',
             'rpy2>=3.0.2',
-            'platypus-opt>=1.0.4'
+            'xgboost==1.5.1',
+            'lightgbm==3.3.2',
+            'platypus-opt==1.0.4'
         ],
         'test':[
             'jupyter',
