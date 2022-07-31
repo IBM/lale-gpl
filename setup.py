@@ -44,6 +44,8 @@ setup(
             'lightgbm==3.3.2',
             'platypus-opt==1.0.4',
             'liac-arff==2.5.0',
+            'smac==0.10.0',
+            'matplotlib==3.5.2',
         ],
         'test':[
             'jupyter',
