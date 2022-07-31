@@ -42,7 +42,8 @@ setup(
             'rpy2>=3.0.2',
             'xgboost==1.5.1',
             'lightgbm==3.3.2',
-            'platypus-opt==1.0.4'
+            'platypus-opt==1.0.4',
+            'liac-arff==2.5.0',
         ],
         'test':[
             'jupyter',
