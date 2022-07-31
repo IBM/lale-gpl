@@ -51,6 +51,6 @@ setup(
             "sphinx_rtd_theme",
             "sphinxcontrib.apidoc",
             'pyspark',
-            'mysql-connector-python'
+            'mysql-connector-python==8.0.29'
         ]}
 )
