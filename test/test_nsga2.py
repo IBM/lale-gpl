@@ -90,7 +90,7 @@ class TestNSGA2(unittest.TestCase):
         for clf in clf_list:
             print(f"\ntest_using_individual_operator: Testing with {clf}")
             nsga2_args = {'estimator': clf, 'scoring': ['accuracy', fpr_scorer],
-                          'best_score': [1, 0], 'cv': 3,
+                          'best_score': [1, 0], 'cv': 2,
                           'max_evals': 20, 'population_size': 10}
             opt = NSGA2(**nsga2_args)
             res = opt.fit(self.X_train, self.y_train)
