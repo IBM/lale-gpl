@@ -46,16 +46,24 @@ setup(
             'liac-arff==2.5.0',
             'smac==0.10.0',
             'matplotlib>=3.3.0',
+            "BlackBoxAuditing",
+            "cvxpy>=1.0",
+            "h5py",
+            "numba",
         ],
         'test':[
             'jupyter',
             'mypy',
             'flake8',
             "sphinx==2.4.4",
+            "m2r",
             "m2r2",
             "sphinx_rtd_theme",
             "sphinxcontrib.apidoc",
             'pyspark',
             'mysql-connector-python'
+            "pytest",
+            "func_timeout",
+            "category-encoders",
         ]}
 )
